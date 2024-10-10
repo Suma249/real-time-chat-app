@@ -1,0 +1,101 @@
+start script in package.json?
+
+what is cors and express.json middlewares?
+
+CORS (Cross-Origin Resource Sharing) is a mechanism that allows resources (like APIs) on a web server to be requested from another 
+domain outside the server’s own domain. Browsers use CORS to control how web applications interact with resources hosted on different domains, 
+preventing unauthorized access.
+
+The express.json() middleware is used to parse incoming JSON request bodies. It's built into Express and converts the raw request body into a 
+JSON object, making it easier to work with in your route handlers.
+
+The listen method returns an instance of the http.Server. This server instance can be used for other operations, like closing the server or attaching WebSocket handlers.
+
+Why mongoose.connect() is Called Before app.listen():
+Establishing a Database Connection First:
+When you start an Express server, it's essential to ensure that all necessary resources (like the database) are available before 
+the server starts accepting requests. By calling mongoose.connect() first, you're making sure that the connection to your MongoDB database is 
+established before handling any incoming requests.
+If the server starts listening for requests without a valid database connection, it may lead to errors when routes attempt to interact with 
+the database (such as creating, reading, updating, or deleting data).
+Error Handling:
+
+If there is an issue connecting to the database, you can catch the error during the startup process and potentially decide not to start the server,
+ ensuring that the application doesn't try to handle requests when the database isn't available.
+
+2. Fields Passed to mongoose.connect():
+The mongoose.connect() function takes two arguments: the MongoDB connection URI and an options object.
+
+a. MongoDB Connection URI (process.env.MONGO_URL):
+The first argument is the connection string (process.env.MONGO_URL),
+
+b. Options Object:
+The second argument is an options object, which contains several options to configure the connection.
+
+useNewUrlParser: true:
+
+This option ensures that the connection string is parsed according to the new MongoDB driver's URL parser. The old URL parser has been deprecated, and this flag tells Mongoose to use the new one.
+useUnifiedTopology: true:
+
+This option enables the new MongoDB driver's unified topology engine. The new topology engine is a more efficient and robust way of handling connections to MongoDB. It includes improvements in handling replica sets and sharded clusters and removes support for some deprecated features.
+These options ensure that your MongoDB connection is established using the latest, most stable methods in the MongoDB driver
+
+No, you cannot use app.json() directly. The correct method to use is express.json().
+
+Here's why:
+
+express.json() is a middleware provided by the Express framework. It is specifically designed to parse incoming JSON request 
+bodies and is part of the Express package.
+When you create an Express app using app = express(), the app object itself doesn't have a method called json(). 
+The json() middleware is part of the express object, not the app object.
+
+what is reportWebVitals that comes by default with react project
+
+what is difference between .jsx file and .js file:
+
+1. JSX Support:
+.jsx (JavaScript XML): This file type is typically used when the file contains JSX syntax, which allows you to write 
+HTML-like code directly in JavaScript. JSX is commonly used in React components because it makes it easier to describe the UI structure.
+.js (JavaScript): This file type is used for standard JavaScript code and doesn't inherently suggest that JSX will be used. However, modern 
+tools like Babel can compile JSX inside .js files, so JSX can still be used inside a .js file.
+
+2. File Type Intent:
+.jsx: The use of this extension signals that the file is intended to contain React components with JSX. It provides clarity to other developers
+ looking at the code that the file will most likely contain JSX.
+.js: This is a general-purpose extension for JavaScript files and doesn’t explicitly communicate that JSX is being used. It’s the default extension for
+ JavaScript files.
+
+3. Tooling and Configuration:
+.jsx: Some build tools (like Webpack) and linters (like ESLint) may have special configurations or optimizations for .jsx files.
+ For instance, some linters may enable stricter rules or warnings for JSX syntax in .jsx files.
+.js: These files are typically configured to run plain JavaScript, but as mentioned, build tools and transpilers (like Babel) allow .js 
+files to also contain JSX if configured properly.
+
+4. Usage Preference:
+Some teams prefer to use .jsx for files that contain JSX code to clearly distinguish between plain JavaScript files and those that involve React components and UI elements.
+Others may use .js for everything, as long as the project’s tooling (Babel, Webpack, etc.) can handle JSX in .js files.
+
+Actually, in a .jsx file, you can add both JavaScript and HTML-like JSX syntax. JSX stands for JavaScript XML, and while it resembles HTML, it is still JavaScript at its core. Here's a breakdown:
+
+What Can Be Done in a .jsx File:
+JSX (HTML-like syntax): You can write HTML-like code (JSX) to define the structure of the UI, like divs, buttons, etc.
+JavaScript Code: You can include JavaScript code within the JSX using curly braces {}
+
+
+Why Use .jsx?
+Clear distinction: Using .jsx files creates a clear distinction that this file contains JSX (HTML-like code) along with JavaScript logic. It immediately tells the developer that the file is primarily for UI structure using JSX.
+
+Readability: For teams, or in larger projects, labeling files with .jsx makes it more readable and understandable for other developers. It serves as an indicator that the file contains components or UI logic rather than pure JavaScript functions or logic.
+
+Best practices/conventions: Some teams or projects follow conventions to separate logic-heavy files (like utility functions or services) with .js and component/UI-heavy files with .jsx. It helps with code organization
+
+
+Why Use .js?
+Consistency: You can use .js everywhere, which simplifies file extension handling, as React (with Babel and Webpack) can process JSX inside .js files. You don't need .jsx to handle JSX code.
+
+Flexibility: If your project mixes UI (JSX) and logic (JavaScript functions) frequently, or you prefer a single extension for all your files, .js is perfectly fine. Many developers and teams just stick to .js for simplicity.
+
+Compatibility: Tools like Babel automatically understand JSX in .js files if correctly configured, so there's no difference in functionality between .js and .jsx
+
+
+what are styled components
